@@ -1,0 +1,931 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>OWASP Top 10</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/beige.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<!--<link rel="stylesheet" href="lib/css/zenburn.css">-->
+	<link rel="stylesheet" href="css/ordina.css">
+	<link rel="stylesheet" href="css/custom.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+
+		link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+</head>
+<body>
+	<div class="reveal">
+		<div >
+			<div id="header">
+				<div id="header-left"></div>
+				<div id="header-right">
+					<img src="img/jworks-logo.png" style="width:125px; height:auto"/>
+				</div>
+			</div>
+		</div>
+
+		<div class="slides">
+
+			<section>
+				<img src="img/owasp.jpg" class="noshadow" alt="OWASP" style="border: none;">
+				<h1>Top Ten project</h1>
+				<h3>The 10 Most Critical Web Application Security Risks</h3>
+				<p style="font-size: 50%">Jeroen Meys</p>
+			</section>
+
+			<section>
+				<section>
+					<h2>Introduction</h2>
+				</section>
+
+				<section>
+					<h2>About me</h2>
+					<div>
+						<!-- <img src="img/jeroen.jpg" style="float:left; width:300px; height:auto;"/> -->
+						<p style="padding-top:40px">
+							Jeroen Meys<br/>
+							Java Developer<br/>
+							Security Enthousiast<br/>
+							<a href="https://github.com/jmeys" target="_blank">https://github.com/jmeys</a>
+						</p>
+					</div>
+				</section>
+
+				<section>
+					<h2>Cyber Security Challenge 2015</h2>
+					<img src="img/csc.png" height="500" alt="CSC 2015">
+					<div id="circle" class="fragment"></div>
+					<p class="fragment">6th place 🥳</p>
+				</section>
+
+				<section>
+					<h2>Web <span class="strikethrough">Hacking</span> Security</h2>
+					<div>
+						<img src="img/bank-login.png">
+					</div>
+				</section>
+				
+				<section>
+					<h2>Web <span class="strikethrough">Hacking</span> Security</h2>
+					<table>
+						<tr>
+							<td><img src="img/bank-mail.png"></td>
+							<td><img src="img/teaching.png"></td>
+						</tr>
+						<tr>
+							<td><img src="img/scoreboard.png"></td>
+							<td><img src="img/sqli.png"></td>
+						</tr>
+					</table>
+				</section>
+
+				<section>
+					<h2>Juice Shop</h2>
+					<a href="https://juice-shop.meys.io"><img src="img/juice-shop.png"></a>
+				</section>
+
+				<section>
+					<h2>OWASP</h2>
+					<div>
+						<img src="img/owasp-logo.png" width="200" style="float: left; border: none;">
+						<ul>
+							<li class="fragment">Open Web Application Project</li>
+							<li class="fragment"><a href="https://owasp.org">https://owasp.org</a></li>
+							<li class="fragment">OWASP Top Ten Project <span class="fragment">(2017)</span></li>
+						</ul>
+					</div>
+
+					<aside class="notes">
+						The Open Web Application Security Project (OWASP) is an
+						open community dedicated to enabling organizations to
+						develop, purchase, and maintain applications and APIs that
+						can be trusted.<br>
+					</aside>
+				</section>
+
+				<section>
+					<h2>Top Ten Project (2017)</h2>
+					<ul>
+						<li class="fragment">Updated every few years</li>
+						<li class="fragment">Based on data and enterprise feedback</li>
+					</ul>
+					<img src="img/owasp-changes.png" class="fragment">
+
+					<aside class="notes">
+						The rapid pace of modern software development processes makes the most common risks essential to discover and resolve quickly and accurately. We can no longer afford to tolerate relatively simple security problems like those presented in this OWASP Top 10.<br>
+						Although the original goal of the OWASP Top 10 project was simply to raise awareness amongst developers and managers, it has become the de facto application security standard.<br>
+					</aside>
+				</section>
+
+				<section>
+					<h2>Application Security Risks</h2>
+					<ul>
+						<li class="fragment">Different for every business / application</li>
+						<li class="fragment">Sometimes effort is not worth it</li>
+						<li class="fragment"><code>Risk = Likelihood * Impact</code></li>
+					</ul>
+
+					<img src="img/attack-path.png" alt="attack path" class="fragment">
+
+					<aside class="notes">
+					</aside>
+				</section>
+			</section>
+
+			<section>
+				<img src="img/bored.gif" width="1000" alt="boooooring">
+			</section>
+
+
+			<section>
+				<section data-background="#DF6F0C">
+					<h2 style="color: #fff;">Injection</h2>
+					<img src="img/exploits_of_a_mom.png" alt="Bobby Tables">
+
+					<aside class="notes">
+						Injection flaws, such as SQL, NoSQL, OS, and LDAP injection, occur when untrusted data is sent
+						to an interpreter as part of a command or query. The attacker’s hostile data can trick the
+						interpreter into executing unintended commands or accessing data without proper authorization.
+					</aside>
+				</section>
+				<section>
+					<h2>What is injection?</h2>
+					<img src="img/A1.png" alt="A1">		
+					<ul>
+						<li class="fragment"><code>' OR 1=1 -- </code></li>
+						<li class="fragment">Attacker can send hostile data to interpreter</li>
+					</ul>
+
+					<aside class="notes">
+						<dl>
+							<dt>Exploitability</dt>
+							<dd>Almost any source of data can be an injection vector, environment variables, parameters, external and internal web services, and all types of users</dd>
+							<dt>Prevalence</dt>
+							<dd>Injection flaws are very prevalent, particularly in legacy code</dd>
+							<dt>Detectability</dt>
+							<dd>Injection flaws are easy to discover when examining code. Scanners and fuzzers can help attackers find injection flaws.</dd>
+							<dt>Impacts</dt>
+							<dd>Injection can result in data loss, corruption, or disclosure to unauthorized parties, loss of accountability, or denial of access. Injection can sometimes lead to complete host takeover.</dd>
+						</dl>
+					</aside>
+				</section>
+
+				<section>
+					<h2>SQLi</h2>
+					<iframe height="500" width="1600" src="https://tp.meys.io/sqli.html"></iframe>
+					<p class="fragment"><a href="https://tp.meys.io/sqli.html">Try it out</a></p>
+				</section>
+
+				<section>
+					<h2>Is my application vulnerable?</h2>
+					<ul>
+						<li class="fragment">User-supplied data is not validated, filtered, or sanitized by the application.</li>
+						<li class="fragment">Dynamic queries or non-parameterized calls without escaping used directly in interpreter</li>
+						<li class="fragment">Search parameters used to extract additional, sensitive records.</li>
+						<li class="fragment">Hostile data is directly used or concatenated in SQL command</li>
+						<li class="fragment"><code>inurl:index.php?id=</code></li>
+					</ul>
+				</section>
+				<section>
+					<h2>Types of injection attacks</h2>
+					<ul>
+						<li class="fragment">SQL
+							<ul>
+								<li class="fragment">Union-Based</li>
+								<li class="fragment">Blind</li>
+								<li class="fragment">Error-Based</li>
+							</ul>
+						</li>
+						<li class="fragment">NoSQL</li>
+						<li class="fragment">OS Command</li>
+						<li class="fragment">ORM</li>
+						<li class="fragment">LDAP</li>
+						<li class="fragment">...</li>
+					</ul>
+				</section>
+				<section>
+					<h2>How to prevent</h2>
+					<ul>
+						<li class="fragment">use safe API</li>
+						<li class="fragment">migrate to ORM Tools</li>
+						<li class="fragment">server-side input whitelisting</li>
+						<li class="fragment">Use LIMIT and other controls within queries to prevent mass disclosure</li>
+						<li class="fragment">Least Privilege</li>
+						<li class="fragment">Back-ups</li>
+					</ul>
+					<aside class="notes">
+
+					</aside>
+				</section>
+				<section>
+					<h2>Example Attack Scenarios</h2>
+					<ul>
+						<li class="fragment"><code>inurl:index.php?id=</code></li>
+					</ul>
+				</section>
+			</section>
+
+
+			<section>
+				<section data-background="#DF6F0C">
+					<h2 style="color: #fff;">Broken Authentication</h2>
+					<img src="img/door.gif" alt="door security flaw">
+
+					<aside class="notes">
+						Application functions related to authentication and session management are often implemented
+						incorrectly, allowing attackers to compromise passwords, keys, or session tokens, or to exploit
+						other implementation flaws to assume other users’ identities temporarily or permanently.
+					</aside>
+				</section>
+				<section>
+					<h2>What is Broken Authentication?</h2>
+					<img src="img/A2.png" alt="A2">
+					<ul>
+						<li class="fragment">Authentication implemented incorrectly</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Is my application vulnerable?</h2>
+					<ul>
+						<li class="fragment">Credential stuffing</li>
+						<li class="fragment">Brute forcing</li>
+						<li class="fragment">Default or weak passwords</li>
+						<li class="fragment">Weak password recovery mechanism</li>
+						<li class="fragment">No or weak encryption</li>
+						<li class="fragment">No or ineffective MFA</li>
+						<li class="fragment">IDs in URL</li>
+						<li class="fragment">No session invalidation</li>
+					</ul>
+				</section>
+				<section>
+					<h2>How to prevent</h2>
+					<ul>
+						<li class="fragment">MFA</li>
+						<li class="fragment">No Default credentials</li>
+						<li class="fragment">Check for weak passwords</li>
+						<li class="fragment">Use password policy</li>
+						<li class="fragment">Login rate limiting</li>
+						<li class="fragment">Use random generators with high entropy</li>
+					</ul>
+					<img class="fragment" height="300" src="img/sammy-kamkar.png" alt="Sammy Kamkar - How I met your girlfriend">
+				</section>
+				<section>
+					<h2>Example Attack Scenarios</h2>
+					<div>
+						<ul>
+							<li class="fragment"><a href="https://github.com/danielmiessler/SecLists">Credential stuffing</a></li>
+							<li class="fragment">Password rotation</li>
+							<li class="fragment">Application timeouts too long</li>
+						</ul>
+						<img class="fragment" src="img/post-it.png" height="200" alt="post-it">
+					</div>
+
+					<aside class="notes">
+						Password rotation: Organizations are recommended to stop these
+						practices per NIST 800-63 and use multi-factor authentication.
+					</aside>
+				</section>
+
+			</section>
+
+			<section>
+				<section data-background="#DF6F0C">
+					<h2 style="color: #fff;">Sensitive Data Exposure</h2>
+					<img src="img/equifax.png" alt="CEO Equifax">
+
+					<aside class="notes">
+						Many web applications and APIs do not properly protect sensitive data, such as financial,
+						healthcare, and PII. Attackers may steal or modify such weakly protected data to conduct credit
+						card fraud, identity theft, or other crimes. Sensitive data may be compromised without extra
+						protection, such as encryption at rest or in transit, and requires special precautions when
+						exchanged with the browser.<br>
+						Richard Smith. Retired in 2017 as CEO of Equifax after 143 milion people had data exposed
+					</aside>
+				</section>
+				<section>
+					<h2>What is Sensitive Data Exposure?</h2>
+					<img src="img/A3.png" alt="A3">
+					<ul>
+						<li class="fragment">Obtain/intercept badly protected sensitive data
+							<ul>
+								<li class="fragment">unencrypted data</li>
+								<li class="fragment">unencrypted connections</li>
+							</ul>
+						</li>
+						<li class="fragment">Not all data is sensitive</li>
+					</ul>
+
+					<aside class="notes">
+						Data such as financial, healthcare, and PII
+					</aside>
+				</section>
+				<section>
+					<h2>Signs of Sensitive Data Exposure</h2>
+					<img class="fragment" src="img/zuckerberg.jpg" alt="zuckerberg">
+					<img class="fragment" style="position: absolute; top: 70px; left: 60px;" src="img/zuckerbot.jpg" alt="zuckerbot">
+				</section>
+				<section>
+					<h2>Signs of Sensitive Data Exposure</h2>
+					<ul>
+						<li class="fragment">Application processes sensitive data</li>
+						<li class="fragment">Sensitive data transfered in plain text?
+							<ul>
+								<li class="fragment">HTTP</li>
+								<li class="fragment">SMTP</li>
+								<li class="fragment">FTP</li>
+							</ul>
+						</li>
+						<li class="fragment">Sensitive data storaged in plain text?
+							<ul>
+								<li class="fragment">passwords</li>
+								<li class="fragment">PII</li>
+								<li class="fragment">PCI data</li>
+							</ul>
+						</li>
+						<li class="fragment">Encryption weak or not enforced?</li>
+						<li class="fragment">User agent ignores bad certificates?</li>
+					</ul>
+				</section>
+				<section>
+					<h2>How to prevent</h2>
+					<ul>
+						<li class="fragment">Classify data which is stored, processed or transmitted</li>
+						<li class="fragment">Don't store sensitive data unnecessarily</li>
+						<li class="fragment">Use TLS with PFS / Server cypher prio and HSTS</li>
+						<li class="fragment">Disable caching for responses with sensitive data</li>
+						<li class="fragment">Store passwords with strong adaptive and salted hashing (delayed) functions
+							<ul>
+								<li class="fragment">brypt</li>
+								<li class="fragment">scrypt</li>
+								<li class="fragment">Argon2</li>
+								<li class="fragment">PBKDF2</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Example Attack Scenarios</h2>
+					<ul>
+						<li class="fragment">Encryption of data in database (instead of application)</li>
+						<li class="fragment">No HSTS</li>
+						<li class="fragment">...</li>
+					</ul>
+
+					<aside class="notes">
+						Weak cyphers, weak password encryption, ...
+					</aside>
+				</section>
+				<section>
+					<img height="660" src="img/nmbs.png">
+				</section>
+
+			</section>
+
+			<section>
+				<section data-background="#DF6F0C">
+					<h2 style="color: #fff;">XML External Entities (XXE)</h2>
+
+					<img src="img/externally.gif" height="400" alt="">
+
+					<aside class="notes">
+						Many older or poorly configured XML processors evaluate external entity references within XML
+						documents. External entities can be used to disclose internal files using the file URI handler,
+						internal file shares, internal port scanning, remote code execution, and denial of service attacks.
+					</aside>
+				</section>
+				<section>
+					<div>
+						<pre>
+&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;
+	&lt;!DOCTYPE foo [
+		&lt;!ELEMENT foo ANY &gt;
+		<span style="color: red;">&lt;!ENTITY xxe SYSTEM "file:///etc/passwd" &gt;</span>
+	]&gt;</pre>
+						</div>
+					</section>
+					<section>
+						<h2>What is XXE?</h2>
+						<img src="img/A4.png" alt="A4">
+						<ul>
+							<li class="fragment">Evaluate mailicious external entities</li>
+						</ul>
+					</section>
+					<section>
+						<h2>When is an application vulnerable to XXE?</h2>
+						<ul>
+							<li class="fragment">Application accepts XML</li>
+							<li class="fragment">External entities not disabled</li>
+						</ul>
+					</section>
+					<section>
+						<h2>How to prevent</h2>
+						<ul>
+							<li class="fragment">Update libraries</li>
+							<li class="fragment">Disable external entities / DTD processing</li>
+							<li class="fragment">Use XSD for file format validation</li>
+							<li class="fragment">Opt for simpler format like JSON</li>
+							<li class="fragment">SAST can detect</li>
+						</ul>
+
+						<aside class="notes">
+							Update all XML processors. Use Soap 1.2+<br>
+							If these controls are not possible, consider using virtual
+							patching, API security gateways, or Web Application Firewalls
+							(WAFs) to detect, monitor, and block XXE attacks.
+						</aside>
+					</section>
+					<section>
+						<h2>Example Attack Scenarios</h2>
+						<ul>
+							<li class="fragment"><code>/etc/passwd</code></li>
+							<li class="fragment">Billion Laughs Attack</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Billion Laughs Attack</h2>
+
+						<img class="fragment" src="img/externally.gif" style="position: absolute; top: 160px; left: 350px;" height="200" alt="">
+
+						<div class="fragment">
+							<img src="img/lolol.gif" class="noshadow" style="position: absolute; top: 10px; left: 20px; border: none;" height="50">
+							<img src="img/lolol.gif" class="noshadow" style="position: absolute; top: 10px; left: 880px; border: none;" height="50">
+							<pre style="background-color: white">
+								&lt;?xml version="1.0"?&gt;
+								&lt;!DOCTYPE lolz [
+								<span class="fragment">&lt;!ENTITY lol "lol"&gt;</span>
+								<span class="fragment">&lt;!ELEMENT lolz (#PCDATA)&gt;</span>
+								<span class="fragment">&lt;!ENTITY lol1 "&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;"&gt;</span>
+								<span class="fragment">&lt;!ENTITY lol2 "&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;"&gt;</span>
+								<span class="fragment">&lt;!ENTITY lol3 "&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;"&gt;</span>
+								<span class="fragment">&lt;!ENTITY lol4 "&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;"&gt;</span>
+								<span class="fragment">&lt;!ENTITY lol5 "&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;"&gt;</span>
+								<span class="fragment">&lt;!ENTITY lol6 "&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;"&gt;</span>
+								<span class="fragment">&lt;!ENTITY lol7 "&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;"&gt;</span>
+								<span class="fragment">&lt;!ENTITY lol8 "&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;"&gt;</span>
+								<span class="fragment">&lt;!ENTITY lol9 "&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;"&gt;</span>
+								]&gt;
+								<span class="fragment">&lt;lolz&gt;&lol9;&lt;/lolz&gt;</span>
+							</pre>
+						</div>
+						<img class="fragment" style="position: absolute; top: 60px; left: 300px;" src="img/explosion.webp" height="600" alt="explosion!">
+					</section>
+				</section>
+
+				<section>
+					<section data-background="#DF6F0C">
+						<h2 style="color: #fff;">Broken Access Control</h2>
+
+						<img src="img/cats.gif" height="500">
+
+						<aside class="notes">
+							Restrictions on what authenticated users are allowed to do are often not properly enforced.
+							Attackers can exploit these flaws to access unauthorized functionality and/or data, such as access
+							other users' accounts, view sensitive files, modify other users’ data, change access rights, etc.
+						</aside>
+					</section>
+					<section>
+						<h2>What is Broken Access Control?</h2>
+						<ul>
+							<li class="fragment">Perform actions you should not be able to do</li>
+							<li class="fragment">By modifying url, token or data</li>
+							<li class="fragment">To access unauthorized functionality/data</li>
+						</ul>
+						<pre class="fragment">https://website.com/basket/<span style="color: green;" class="fragment fade-out">10</span><span style="color: red;" class="fragment fade-in">666</span></pre>
+					</section>
+					<section>
+						<h2>Signs of Broken Access Control</h2>
+						<ul>
+							<li class="fragment">Elevation of privilege</li>
+							<li class="fragment">CORS misconfiguration</li>
+							<li class="fragment">Force browsing to authenticated pages as unauthenticated user</li>
+							<li class="fragment">privilege checks in front end only</li>
+						</ul>
+					</section>
+					<section>
+						<h2>How to prevent</h2>
+						<ul>
+							<li class="fragment">Deny by default</li>
+							<li class="fragment">Implement access control mechanisms once and re-use them</li>
+							<li class="fragment">Enforce record ownership</li>
+						</ul>
+
+						<!-- TODO picture -->
+
+						<aside class="notes">
+							Deny by default does not apply to public resources.<br>
+						</aside>
+					</section>
+					<section>
+						<h2>Example Attack Scenarios</h2>
+						<ul>
+							<li class="fragment">Change ID in URL and see what happens
+								<ul>
+									<li class="fragment"><code>https://patientinfo.com?id=159</code></li>
+									<li class="fragment"><code>https://patientinfo.com?id=160</code></li>
+								</ul>
+
+							</li>
+							<li class="fragment">Check if you an access admin urls as non-admin
+								<ul>
+									<li class="fragment"><code>https://patientinfo.com/users/dashboard</code></li>
+									<li class="fragment"><code>https://patientinfo.com/admins/dashboard</code></li>
+									<li class="fragment"><code>https://patientinfo.com/users/dashboard/admin</code></li>
+									<li class="fragment"><code>https://patientinfo.com/users/dashboard?admin</code></li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+				</section>
+
+				<section data-background-iframe="https://threatmap.fortiguard.com/" data-background-interactive>
+					<h2>☕️&nbsp;Pause&nbsp;☕️</h2>
+				</section>
+
+				<section>
+					<section data-background="#DF6F0C">
+						<h2 style="color: #fff;">Security Misconfiguration</h2>
+						<video height="600" autoplay controls loop>
+							<source src="img/scanning.mp4" type="video/mp4"/>					
+						</video>
+
+						<aside class="notes">
+							Security misconfiguration is the most commonly seen issue. This is commonly a result of insecure
+							default configurations, incomplete or ad hoc configurations, open cloud storage, misconfigured
+							HTTP headers, and verbose error messages containing sensitive information. Not only must all
+							operating systems, frameworks, libraries, and applications be securely configured, but they must
+							be patched and upgraded in a timely fashion.
+						</aside>
+					</section>
+					<section>
+						<h2>What is Security Misconfiguration?</h2>
+						<img src="img/A6.png" alt="A6">
+						<ul>
+							<li class="fragment">insecure defaults (admin/admin)</li>
+							<li class="fragment">incomplete configuration</li>
+							<li class="fragment">open cloud storage</li>
+							<li class="fragment">misconfigured HTTP Headers</li>
+							<li class="fragment">Verbose errors revealing sensitive info</li>
+							<li class="fragment">Most commonly seen issue</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Signs of Security Misconfiguration</h2>
+						<ul>
+							<li class="fragment"><a href="https://securityheaders.com/">Lacking HTTP security Headers</a></li>
+							<li class="fragment">insecure default settings and accounts</li>
+							<li class="fragment">verbose error logs on HTTP 500</li>
+							<li class="fragment">insecure defaults</li>
+							<li class="fragment">outdated software</li>
+							<li class="fragment">Updated system has wrong security settings</li>
+						</ul>
+					</section>
+					<section>
+						<h2>How to prevent</h2>
+						<ul>
+							<li class="fragment">Keep hardened configigurations identically over all environments</li>
+							<li class="fragment">Minimal platform w/o unnecesary:
+								<ul>
+									<li class="fragment">features</li>
+									<li class="fragment">components</li>
+									<li class="fragment">documentation</li>
+									<li class="fragment">samples</li>
+								</ul>
+							</li>
+							<li class="fragment">A task to review and update all components / permissions</li>
+							<li class="fragment">Use segmented architecture</li>
+							<li class="fragment">Use containerization</li>
+							<li class="fragment">Sending security directives to clients (Security Headers)</li>
+							<li class="fragment">Use automated process to verify effectiveness of configs in all environments</li>
+						</ul>
+
+						<aside class="notes">
+							configurations should have different credentials for every environment.
+						</aside>
+					</section>
+					<section>
+						<h2>Example Attack Scenarios</h2>
+						<ul>
+							<li class="fragment">Directory listing not disabled</li>
+							<li class="fragment">Error messages reveal sensitive data</li>
+							<li class="fragment">Cloud service provider has weak default sharing permissions</li>
+						</ul>
+					</section>
+
+				</section>
+
+				<section>
+					<section data-background="#DF6F0C">
+						<h2 style="color: #fff;">Cross-Site Scripting (XSS)</h2>
+
+						<img src="img/xss.png" height="400">
+
+						<aside class="notes">
+							XSS flaws occur whenever an application includes untrusted data in a new web page without
+							proper validation or escaping, or updates an existing web page with user-supplied data using a
+							browser API that can create HTML or JavaScript. XSS allows attackers to execute scripts in the
+							victim’s browser which can hijack user sessions, deface web sites, or redirect the user to
+							malicious sites.
+						</aside>
+					</section>
+					<section>
+						<h2>What is XSS?</h2>
+						<img src="img/A7.png" alt="A7">
+
+						<ul>
+							<li class="fragment">Untrusted data</li>
+							<li class="fragment">Not sanitized</li>
+							<li class="fragment">Executes code or alters site to
+								<ul>
+									<li class="fragment">Hijack sessions</li>
+									<li class="fragment">deface web sites</li>
+									<li class="fragment">redirect user to malicious website</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Types of XSS</h2>
+						<ul>
+							<li class="fragment">Reflected XSS</li>
+							<li class="fragment">DOM XSS</li>
+							<li class="fragment">Stored XSS</li>
+						</ul>
+
+						<aside class="notes">
+							<dl>
+								<dt>Reflected XSS</dt>
+								<dd>The application or API includes unvalidated and unescaped user input as part of HTML output. A successful
+									attack can allow the attacker to execute arbitrary HTML and JavaScript in the victim’s browser. Typically the user will need to interact with some malicious link that points to an attackercontrolled page, such as malicious watering hole websites, advertisements, or similar.
+								</dd>
+
+								<dt>Stored XSS</dt>
+								<dd>The application or API stores unsanitized user input that is viewed at a later time by another user or an 				administrator. Stored XSS is often considered a high or critical risk.</dd>
+
+								<dt>DOM XSS</dt>
+								<dd>JavaScript frameworks, single-page applications, and APIs that dynamically include attacker-controllable data to a 		page are vulnerable to DOM XSS. Ideally, the application would not send attacker-controllable data to unsafe 			JavaScript APIs.</dd>
+							</dl>
+						</aside>
+					</section>
+					<section>
+						<h2>How to prevent</h2>
+						<ul>
+							<li class="fragment">Use framework for escaping XSS by design</li>
+							<li class="fragment">Lookup what your framework does and doesn't</li>
+							<li class="fragment">Use Content Security Policy HTTP headers</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Example Attack Scenarios</h2>
+						<iframe height="500" width="1600" src="https://tp.meys.io/xss.html"></iframe>
+						<p class="fragment"><a href="https://tp.meys.io/xss.html">Try it out</a></p>
+					</section>
+
+				</section>
+
+				<section>
+					<section data-background="#DF6F0C">
+						<h2 style="color: #fff;">Insecure Deserialization</h2>
+
+						<img src="img/presents.gif" height="500">
+
+						<aside class="notes">
+							Insecure deserialization often leads to remote code execution. Even if deserialization flaws do not
+							result in remote code execution, they can be used to perform attacks, including replay attacks,
+							injection attacks, and privilege escalation attacks. 
+						</aside>
+					</section>
+					<section>
+						<h2>What is Insecure Deserialization?</h2>
+						<img src="img/A8.png" alt="A8">
+						<ul>
+							<li class="fragment">2 Types
+								<ul>
+									<li class="fragment">data structure tempering</li>
+									<li class="fragment">data tempering</li>
+								</ul>
+							</li>
+							<li class="fragment">Tempering with cookies</li>
+							<li class="fragment">Modify configs that server loads</li>
+							<li class="fragment">Modify cache data</li>
+						</ul>
+					</section>
+					<section>
+						<h2>How to prevent</h2>
+						<ul>
+							<li class="fragment">Don't accept serialized objects from untrusted sources</li>
+							<li class="fragment">Only allow serialized primitive data types</li>
+							<li class="fragment">Define strict type constraints</li>
+							<li class="fragment">Run deserialization code with low privilege</li>
+							<li class="fragment">Log deserialization exceptions</li>
+						</ul>
+						<!-- <img src="img/modify.webp" height="300"> -->
+					</section>
+					<section data-background-image="img/cookiemonster.gif" data-background-opacity=".1">
+						<h2>Example Attack Scenarios</h2>
+						<p class="fragment">Cookie:</p>
+						<pre class="fragment" style="background: white;">a:4:{i:0;i:132;i:1;s:7:"Alice";i:2;s:4:"user"; i:3;s:32:"b6a8b3be";}</pre>
+						<pre class="fragment" style="background: white;">a:4:{i:0;i:132;i:1;s:7:"<span style="color: red;">Eve</span>";i:2;s:4:"<span style="color: red;">admin</span>"; i:3;s:32:"b6a8b3be";}</pre>
+
+					</section>
+
+				</section>
+
+				<section>
+					<section data-background="#DF6F0C">
+						<h2 style="color: #fff;">Using Components with Known Vulnerabilities</h2>
+
+						<img src="img/legacy.jpeg" height="350" alt="Legacy code">
+
+						<aside class="notes">
+							Components, such as libraries, frameworks, and other software modules, run with the same
+							privileges as the application. If a vulnerable component is exploited, such an attack can facilitate
+							serious data loss or server takeover. Applications and APIs using components with known
+							vulnerabilities may undermine application defenses and enable various attacks and impacts.<br>
+							Explain serialization first<br>
+							Because of industry input
+						</aside>
+					</section>
+					<section>
+						<h2>What is it?</h2>
+						<img src="img/A9.png" alt="A9">
+						<ul>
+							<li class="fragment">Usage of older libraries with known vulnerabilities</li>
+							<li class="fragment">Badly patched components (OS, web server)</li>
+							<li class="fragment">Not configuring components correctly</li>
+						</ul>
+					</section>
+					<section>
+						<h2>How to prevent</h2>
+						<ul>
+							<li class="fragment">Remove unused dependencies</li>
+							<li class="fragment">Have patch management in place</li>
+							<li class="fragment">Subscribe to vulnerability mailing lists</li>
+							<li class="fragment">Only obtain sources via trusted parties</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Example Attack Scenarios</h2>
+						<ul>
+							<li class="fragment">Diginotar</li>
+							<li class="fragment">Personal VM</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section data-background="#DF6F0C">
+						<h2 style="color: #fff;">Insufficient Logging & Monitoring</h2>
+						<!-- <img src="img/cameras.jpeg" height="500" alt="cameras"> -->
+						<video height="600" autoplay controls loop />
+							<source src="img/monitoring.mp4" type="video/mp4" />
+						</video>
+
+							<aside class="notes">
+								Insufficient logging and monitoring, coupled with missing or ineffective integration with incident
+								response, allows attackers to further attack systems, maintain persistence, pivot to more systems,
+								and tamper, extract, or destroy data. Most breach studies show time to detect a breach is over
+								200 days, typically detected by external parties rather than internal processes or monitoring. 
+							</aside>
+					</section>
+					<section>
+						<h2>What is it?</h2>
+						<img src="img/A10.png" alt="A10">
+
+						<ul>
+							<li class="fragment">Insufficient logging and monitoring
+								<ul>
+									<li class="fragment">Login attempts</li>
+									<li class="fragment">Sensitive operations</li>
+									<li class="fragment">Error messages are unclear</li>
+								</ul>
+							</li>
+							<li class="fragment">Not processing logs
+								<ul>
+									<li class="fragment">Logs are not distributed</li>
+									<li class="fragment">No scanning for malicious activity</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h2>How to prevent</h2>
+						<ul>
+							<li class="fragment">Log all login, access control failures and server-side input validation failures</li>
+							<li class="fragment">Penetration testing should trigger alarms</li>
+							<li class="fragment">Use log format that is easily processed</li>
+							<li class="fragment">audit-trail for high-value transactions</li>
+							<li class="fragment">Event sourcing</li>
+							<li class="fragment">Establish effective monitoring and alerting</li>
+							<li class="fragment">Adopt en incident response and recovery plan</li>
+						</ul>
+					</section>
+
+				</section>
+
+				<section>
+					<section data-background="#DF6F0C">
+						<h2 style="color: #fff;">Cross Site Request Forgery (CSRF)</h2>
+
+						<aside class="notes">
+							No longer on the OWASP Top 10.<br>
+							Frameworks protect against this<br>
+							It was found in only 5% of applications.
+						</aside>
+					</section>
+					<section>
+						<h2>What is CSRF?</h2>
+						<ul>
+							<li class="fragment">Force someone into performing action on application they are authenticated with</li>
+							<li class="fragment">Force victim into application state change &lt;&gt; Not stealing data</li>
+						</ul>
+					</section>
+					<section>
+						<h2>How to prevent</h2>
+						<ul>
+							<li class="fragment">Use CSRF Token
+								<ul>
+									<li class="fragment"><code>&lt;input type="hidden" name="_token" id="csrf-token" value="64awd4684awda8aw"&gt;</code></li>
+									<li class="fragment">stateful</li>
+									<li class="fragment">stateless</li>
+								</ul>
+							</li>
+							<li class="fragment">Require user interaction for highly sensitive operations
+								<ul>
+									<li class="fragment">re-authentication</li>
+									<li class="fragment">one-time token</li>
+								</ul>
+							</li>
+							<li class="fragment">As a user, log out</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Example Attack Scenarios</h2>
+						<ul>
+							<li class="fragment"><code>&lt;img src="http://bank.com/transfer.do?acct=MARIA&amount=100000"&gt;</code></li>
+							<li class="fragment"><code>&lt;body <span class="focus">onload="document.forms[0].submit()</span>"&gt;&lt;form...</code></li>
+						</ul>
+					</section>
+
+				</section>
+
+				<section>
+					<section data-background="#DF6F0C">
+						<h2 style="color: #fff;">🏁 Capture the flag 🏁</h2>
+						<aside class="notes">
+
+						</aside>
+					</section>
+					<section>
+						<h2>🏁 Capture the flag 🏁</h2>
+						<table>
+							<tr>
+								<td class="fragment"><img src="img/juice-shop.png"></td>
+								<td class="fragment"><img src="img/ctf.png"></td>
+							</tr>
+							<tr>
+								<td class="fragment"><a href="https://github.com/jmeys/juice-shop">https://github.com/jmeys/juice-shop</a></td>
+								<td class="fragment"><a href="https://ctf.meys.io">https://ctf.meys.io</a></td>
+							</tr>
+						</table>
+						<p class="fragment">Slides: <a href="https://meys.io">https://meys.io</a></p>
+					</section>
+				</section>
+
+				</div>
+			</div>
+
+			<script src="lib/js/head.min.js"></script>
+			<script src="js/reveal.js"></script>
+
+			<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+				{ src: 'plugin/markdown/marked.js' },
+				{ src: 'plugin/markdown/markdown.js' },
+				{ src: 'plugin/notes/notes.js', async: true },
+				{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			},
+					// Speaker notes
+					{
+						src: 'plugin/notes/notes.js',
+						async: true
+					});
+				</script>
+			</body>
+			</html>
