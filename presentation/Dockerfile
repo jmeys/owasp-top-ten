@@ -1,7 +1,7 @@
 FROM node:10 as installer
 COPY . /owasp-top-ten-ppt
 WORKDIR /owasp-top-ten-ppt
-RUN npm install --production --unsafe-perm
+RUN npm install
 RUN rm -rf frontend/node_modules
 
 FROM node:10-alpine
